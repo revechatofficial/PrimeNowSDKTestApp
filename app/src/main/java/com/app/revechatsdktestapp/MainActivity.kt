@@ -119,6 +119,8 @@ class MainActivity : AppCompatActivity() {  //, REVEChatEventListener
 
         ReveChat.setIsScreenShotEnabled(false)
 
+        ReveChat.setLogEnabled(true)
+
 
         startService(Intent(this, REVEChatApiService::class.java))
     }
