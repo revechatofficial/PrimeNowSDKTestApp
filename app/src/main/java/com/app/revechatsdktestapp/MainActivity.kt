@@ -5,30 +5,19 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.text.TextUtils
-import android.util.Log
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
-import com.app.revechatsdktestapp.webhook.REVEChatWebHook
-import com.google.gson.Gson
-import com.revesoft.revechatsdk.data.remote.getglobal.RetrofitClient.userService
-import com.revesoft.revechatsdk.data.remote.getglobal.TokenVerifyResponse
-import com.revesoft.revechatsdk.event.REVEChatEventListener
-import com.revesoft.revechatsdk.event.REVEChatEventManager.registerListener
 import com.revesoft.revechatsdk.model.VisitorInfo
+import com.revesoft.revechatsdk.primenow.CustomerInfoProvider
+import com.revesoft.revechatsdk.primenow.REVEChatPrimeNowSdk
 import com.revesoft.revechatsdk.service.REVEChatApiService
 import com.revesoft.revechatsdk.ui.activity.ReveChatActivity
 import com.revesoft.revechatsdk.utils.ReveChat
-import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
 class MainActivity : AppCompatActivity() {  //, REVEChatEventListener
@@ -84,6 +73,41 @@ class MainActivity : AppCompatActivity() {  //, REVEChatEventListener
 
         initiateReveChat()
 
+        testCustomerInfoForSDK()
+
+    }
+
+
+    private fun testCustomerInfoForSDK() {
+        REVEChatPrimeNowSdk.initialize(object : CustomerInfoProvider {
+            override fun getCustomerId(): String {
+                return "12345678"
+            }
+
+            override fun getCustomerTitle(): String {
+                return "Mr."
+            }
+
+            override fun getCustomerType(): String {
+                return "premium"
+            }
+
+            override fun getCustomerEmail(): String {
+                return "test@test.com"
+            }
+
+            override fun getCustomerPhone(): String {
+                return "0181111111"
+            }
+
+            override fun getCustomerAccountId(): String {
+                return "21222"
+            }
+
+            override fun getAccountNumber(): String {
+                return "321"
+            }
+        })
     }
 
     override fun onDestroy() {
